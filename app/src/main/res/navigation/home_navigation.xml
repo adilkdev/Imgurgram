@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/navigation_hot">
+    <fragment
+        android:id="@+id/navigation_hot"
+        android:name="adil.app.imgurgram.ui.feed.FeedFragment"
+        android:label="@string/nav_title_hot"
+        tools:layout="@layout/fragment_feed">
+        <argument
+            android:name="feed"
+            android:defaultValue="hot"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_top"
+        android:name="adil.app.imgurgram.ui.feed.FeedFragment"
+        android:label="@string/nav_title_top"
+        tools:layout="@layout/fragment_feed">
+        <argument
+            android:name="feed"
+            android:defaultValue="top"
+            app:argType="string" />
+    </fragment>
+</navigation>
