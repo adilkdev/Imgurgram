@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/navigation_hot"
         android:name="adil.app.imgurgram.ui.feed.FeedFragment"
-        android:label="@string/nav_title_hot"
+        android:label="Hot"
         tools:layout="@layout/fragment_feed">
         <argument
             android:name="feed"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/navigation_top"
         android:name="adil.app.imgurgram.ui.feed.FeedFragment"
-        android:label="@string/nav_title_top"
+        android:label="Top"
         tools:layout="@layout/fragment_feed">
         <argument
             android:name="feed"

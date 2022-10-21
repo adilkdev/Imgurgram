@@ -58,7 +58,7 @@ data class TagsResponse(
                 @Json(name = "downs")
                 val downs: Int?,
                 @Json(name = "favorite")
-                val favorite: String?,
+                val favorite: Boolean?,
                 @Json(name = "favorite_count")
                 val favoriteCount: Int?,
                 @Json(name = "id")

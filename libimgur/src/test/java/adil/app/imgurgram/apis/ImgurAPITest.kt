@@ -1,6 +1,9 @@
 package adil.app.imgurgram.apis
 
+import adil.app.libimgur.ImgurClient
 import adil.app.libimgur.apis.ImgurAPI
+import adil.app.libimgur.params.Section
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -9,31 +12,23 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class ImgurAPITest {
 
-    private val client = OkHttpClient.Builder()
-        .addInterceptor {
-            val request = it.request().newBuilder()
-                .addHeader("Authorization", "Client-ID 13fe9c78fce466c")
-                .build()
-            it.proceed(request)
-        }.build()
-
-    private val retrofit = Retrofit.Builder()
-        .client(client)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("https://api.imgur.com/3/")
-        .build()
-
-    private val api = retrofit.create(ImgurAPI::class.java)
+    private val api = ImgurClient.api
 
     @Test
-    fun `get tags is working`() {
-        val response = api.getTags().execute()
+    fun `get tags is working`() = runBlocking {
+        val response = api.getTags()
         assertNotNull(response.body())
     }
 
     @Test
-    fun `get gallery is working`() {
-        val response = api.getGallery().execute()
+    fun `get gallery - hot working`() = runBlocking {
+        val response = api.getGallery(Section.HOT)
+        assertNotNull(response.body())
+    }
+
+    @Test
+    fun `get gallery - top working`() = runBlocking {
+        val response = api.getGallery(Section.TOP)
         assertNotNull(response.body())
     }
 

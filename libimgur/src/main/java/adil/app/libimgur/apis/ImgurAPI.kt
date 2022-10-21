@@ -2,15 +2,22 @@ package adil.app.libimgur.apis
 
 import adil.app.libimgur.models.GalleryResponse
 import adil.app.libimgur.models.TagsResponse
+import adil.app.libimgur.params.Section
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ImgurAPI {
 
-    @GET("gallery/hot?album_previews=true")
-    fun getGallery() : Call<GalleryResponse>
+    @GET("gallery/{section}")
+    suspend fun getGallery(
+        @Path("section") section: Section,
+        @Query("album_previews") albumPreviews: Boolean? = true
+    ) : Response<GalleryResponse>
 
     @GET("tags")
-    fun getTags() : Call<TagsResponse>
+    suspend fun getTags() : Response<TagsResponse>
 
 }

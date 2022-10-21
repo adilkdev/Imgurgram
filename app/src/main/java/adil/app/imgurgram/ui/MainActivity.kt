@@ -2,7 +2,6 @@ package adil.app.imgurgram.ui
 
 import adil.app.imgurgram.R
 import adil.app.imgurgram.databinding.ActivityMainBinding
-import adil.app.libimgur.ImgurAPI
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController

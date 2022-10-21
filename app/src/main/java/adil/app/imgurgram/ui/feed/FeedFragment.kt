@@ -1,13 +1,14 @@
 package adil.app.imgurgram.ui.feed
 
-import androidx.lifecycle.ViewModelProvider
+import adil.app.imgurgram.databinding.FragmentFeedBinding
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import adil.app.imgurgram.R
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 
 @Suppress("DEPRECATION")
 class FeedFragment : Fragment() {
@@ -16,24 +17,27 @@ class FeedFragment : Fragment() {
         fun newInstance() = FeedFragment()
     }
 
-    private lateinit var viewModel: FeedViewModel
+    private val viewModel: FeedViewModel by viewModels()
+    private val feedAdapter = FeedRecyclerAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val feed = arguments?.getString("feed")
+        feed?.let { viewModel.updateFeed(it) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        val feed = arguments?.getString("feed")
-        val rootView = inflater.inflate(R.layout.fragment_feed, container, false)
-        feed?.let { feedType ->
-            rootView.findViewById<TextView>(R.id.tvFeedType).text = feedType
-        }
-        return rootView
-    }
+    ): View {
+        val binding = FragmentFeedBinding.inflate(inflater, container, false)
+        binding.feedRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.feedRecyclerView.adapter = feedAdapter
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[FeedViewModel::class.java]
+        viewModel.feed.observe({lifecycle}) {
+            feedAdapter.submitList(it)
+        }
+        return binding.root
     }
 
 }
