@@ -1,6 +1,7 @@
 package adil.app.libimgur.apis
 
 import adil.app.libimgur.models.GalleryResponse
+import adil.app.libimgur.models.TagResponse
 import adil.app.libimgur.models.TagsResponse
 import adil.app.libimgur.params.Section
 import retrofit2.Call
@@ -19,5 +20,10 @@ interface ImgurAPI {
 
     @GET("tags")
     suspend fun getTags() : Response<TagsResponse>
+
+    @GET("gallery/t/{tag}")
+    suspend fun getTagGallery(
+        @Path("tag") tag: String
+    ): Response<TagResponse>
 
 }
