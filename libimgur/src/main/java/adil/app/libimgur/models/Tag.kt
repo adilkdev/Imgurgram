@@ -28,7 +28,7 @@ data class Tag(
     @Json(name = "logo_destination_url")
     val logoDestinationUrl: Any?,
     @Json(name = "logo_hash")
-    val logoHash: Any?,
+    val logoHash: String?,
     @Json(name = "name")
     val name: String?,
     @Json(name = "thumbnail_hash")

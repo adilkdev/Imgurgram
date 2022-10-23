@@ -1,10 +1,10 @@
-package adil.app.imgurgram.ui.stories
+package adil.app.imgurgram.ui.home
 
 import adil.app.imgurgram.databinding.ListItemStoryHeadBinding
-import adil.app.libimgur.models.Gallery
+import adil.app.imgurgram.ui.story.StoryActivity
 import adil.app.libimgur.models.Tag
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,9 +21,7 @@ class StoriesRecyclerAdapter() :
     }
 
     override fun onBindViewHolder(holder: StoriesViewHolder, position: Int) {
-        val tag = getItem(position)
-        holder.storyHeadTextView.text = tag.displayName
-        holder.storyHeadImageView.load("https://i.imgur.com/${tag.backgroundHash}.jpg")
+        holder.bind(getItem(position))
     }
 
     private class StoriesDiffCallback : DiffUtil.ItemCallback<Tag>() {
@@ -35,6 +33,16 @@ class StoriesRecyclerAdapter() :
     class StoriesViewHolder(binding: ListItemStoryHeadBinding) : RecyclerView.ViewHolder(binding.root) {
         val storyHeadImageView = binding.storyHeadImageView
         val storyHeadTextView = binding.storyHeadTextView
+        private val root = binding.root
+        fun bind(tag: Tag) {
+            storyHeadTextView.text = tag.displayName
+            storyHeadImageView.load("https://i.imgur.com/${tag.backgroundHash}.jpg")
+            root.apply {
+                setOnClickListener {
+                    context.startActivity(Intent(context, StoryActivity::class.java).putExtra("tag", tag.name))
+                }
+            }
+        }
     }
 
 }

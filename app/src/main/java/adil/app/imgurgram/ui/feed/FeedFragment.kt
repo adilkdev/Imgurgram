@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.Coil
+import coil.request.ImageRequest
 
 @Suppress("DEPRECATION")
 class FeedFragment : Fragment() {
@@ -34,9 +35,17 @@ class FeedFragment : Fragment() {
         binding.feedRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.feedRecyclerView.adapter = feedAdapter
 
-        viewModel.feed.observe({lifecycle}) {
+        viewModel.feed.observe({ lifecycle }) {
+            it.forEach { image ->
+                val request = ImageRequest.Builder(requireContext())
+                    .data("https://i.imgur.com/${image.cover}.jpg")
+                    .size(binding.feedRecyclerView.width)
+                    .build()
+                Coil.imageLoader(requireContext()).enqueue(request)
+            }
             feedAdapter.submitList(it)
         }
+
         return binding.root
     }
 

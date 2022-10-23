@@ -1,9 +1,7 @@
-package adil.app.imgurgram.ui
+package adil.app.imgurgram.ui.home
 
 import adil.app.imgurgram.R
 import adil.app.imgurgram.databinding.ActivityMainBinding
-import adil.app.imgurgram.ui.stories.StoriesRecyclerAdapter
-import adil.app.imgurgram.ui.stories.StoriesViewModel
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,12 +9,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.Coil
+import coil.request.ImageRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val storiesViewModel: StoriesViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     private val storiesAdapter = StoriesRecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = storiesAdapter
         }
-        storiesViewModel.fetchTags()
+        homeViewModel.fetchTags()
     }
 
     private fun setupNav() {
@@ -39,7 +39,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        storiesViewModel.tags.observe(this) {
+        homeViewModel.tags.observe(this) {
+            it.forEach { tag ->
+                val request = ImageRequest.Builder(this)
+                    .data("https://i.imgur.com/${tag.backgroundHash}.jpg")
+                    .size(resources.getDimensionPixelSize(R.dimen.story_head_image_size))
+                    .build()
+                Coil.imageLoader(this).enqueue(request)
+            }
             storiesAdapter.submitList(it)
         }
     }
