@@ -39,7 +39,6 @@ class FeedFragment : Fragment() {
             it.forEach { image ->
                 val request = ImageRequest.Builder(requireContext())
                     .data("https://i.imgur.com/${image.cover}.jpg")
-                    .size(binding.feedRecyclerView.width)
                     .build()
                 Coil.imageLoader(requireContext()).enqueue(request)
             }

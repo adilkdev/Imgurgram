@@ -31,6 +31,7 @@
             android:layout_marginVertical="16dp"
             android:fontFamily="@font/open_sans"
             android:letterSpacing="0.02"
+            android:lineHeight="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="#222323"
             android:textSize="13sp"
