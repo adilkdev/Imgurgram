@@ -11,20 +11,20 @@
         android:id="@+id/textViewAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_12"
         android:fontFamily="@font/caveat_brush"
-        android:text="Imgurgram"
+        android:text="@string/imgurgram"
         android:textColor="@color/black"
-        android:textSize="32sp"
+        android:textSize="@dimen/sp_32"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/storiesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="@dimen/dp_110"
+        android:layout_marginTop="@dimen/dp_6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAppName" />
@@ -33,8 +33,8 @@
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginStart="@dimen/dp_0"
+        android:layout_marginEnd="@dimen/dp_0"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -45,12 +45,13 @@
         android:id="@+id/nav_host_fragment_activity_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_0"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/storiesRecyclerView"
-        app:navGraph="@navigation/home_navigation" />
+        app:navGraph="@navigation/home_navigation"
+        tools:ignore="FragmentTagUsage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

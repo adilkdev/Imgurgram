@@ -3,7 +3,6 @@ package adil.app.imgurgram.ui.feed
 import adil.app.imgurgram.R
 import adil.app.imgurgram.databinding.ListItemHomeBinding
 import adil.app.libimgur.models.Image
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 
-class FeedRecyclerAdapter() :
+class FeedRecyclerAdapter :
     ListAdapter<Image, FeedRecyclerAdapter.FeedViewHolder>(FeedDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
@@ -29,8 +28,6 @@ class FeedRecyclerAdapter() :
             placeholder(R.drawable.placeholder_image)
             error(R.drawable.placeholder_image)
         }
-
-        Log.e("adilLogging", "link : ${image.link}")
     }
 
     private class FeedDiffCallBack : DiffUtil.ItemCallback<Image>() {

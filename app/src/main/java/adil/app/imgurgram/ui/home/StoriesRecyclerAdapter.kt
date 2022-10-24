@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 
-class StoriesRecyclerAdapter() :
+class StoriesRecyclerAdapter :
     ListAdapter<Tag, StoriesRecyclerAdapter.StoriesViewHolder>(StoriesDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoriesViewHolder {
@@ -30,16 +30,20 @@ class StoriesRecyclerAdapter() :
         override fun areContentsTheSame(oldItem: Tag, newItem: Tag) = oldItem == newItem
     }
 
-    class StoriesViewHolder(binding: ListItemStoryHeadBinding) : RecyclerView.ViewHolder(binding.root) {
-        val storyHeadImageView = binding.storyHeadImageView
-        val storyHeadTextView = binding.storyHeadTextView
+    class StoriesViewHolder(binding: ListItemStoryHeadBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        private val storyHeadImageView = binding.storyHeadImageView
+        private val storyHeadTextView = binding.storyHeadTextView
         private val root = binding.root
         fun bind(tag: Tag) {
             storyHeadTextView.text = tag.displayName
             storyHeadImageView.load("https://i.imgur.com/${tag.backgroundHash}.jpg")
             root.apply {
                 setOnClickListener {
-                    context.startActivity(Intent(context, StoryActivity::class.java).putExtra("tag", tag.name))
+                    context.startActivity(
+                        Intent(context, StoryActivity::class.java)
+                            .putExtra(StoryActivity.TAG, tag.name)
+                    )
                 }
             }
         }

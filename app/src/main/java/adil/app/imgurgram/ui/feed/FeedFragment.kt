@@ -14,10 +14,6 @@ import coil.request.ImageRequest
 @Suppress("DEPRECATION")
 class FeedFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = FeedFragment()
-    }
-
     private val viewModel: FeedViewModel by viewModels()
     private val feedAdapter = FeedRecyclerAdapter()
 

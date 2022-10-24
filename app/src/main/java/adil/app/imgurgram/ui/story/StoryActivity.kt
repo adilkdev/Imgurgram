@@ -11,6 +11,14 @@ import androidx.viewpager2.widget.ViewPager2
 
 class StoryActivity : AppCompatActivity() {
 
+    companion object {
+        const val INITIAL_SCALE = 0F
+        const val FINAL_SCALE = 1F
+        const val PAGE_DURATION = 5000L
+        const val START_DELAY = 10L
+        const val TAG = "tag"
+    }
+
     private val storyViewModel: StoryViewModel by viewModels()
     private lateinit var _binding: ActivityStoryBinding
     private val storyPagerAdapter = StoryPagerAdapter()
@@ -22,7 +30,7 @@ class StoryActivity : AppCompatActivity() {
         _binding = ActivityStoryBinding.inflate(layoutInflater)
         setContentView(_binding.root)
 
-        val tagName = intent.getStringExtra("tag")
+        val tagName = intent.getStringExtra(TAG)
         tagName?.let { it ->
             storyViewModel.fetchTags(it)
         }
@@ -43,12 +51,13 @@ class StoryActivity : AppCompatActivity() {
             super.onPageSelected(position)
             // end animation on page change
             _binding.progressView.clearAnimation()
-            _binding.progressView.scaleX = 0F
+            _binding.progressView.scaleX = INITIAL_SCALE
             // start animation for new page
-            progressAnimator.scaleX(1F).setStartDelay(10).setDuration(5000L).start()
+            progressAnimator.scaleX(FINAL_SCALE).setStartDelay(START_DELAY)
+                .setDuration(PAGE_DURATION).start()
 
             handler.removeCallbacks(nextRunnable)
-            handler.postDelayed(nextRunnable, 5000)
+            handler.postDelayed(nextRunnable, PAGE_DURATION)
         }
     }
 
